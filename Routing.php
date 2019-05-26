@@ -25,6 +25,10 @@ class Routing
                 'controller' => 'DefaultController',
                 'action' => 'logout'
             ],
+            'register' => [
+                'controller' => 'DefaultController',
+                'action' => 'register'
+            ],
             'upload' => [
                 'controller' => 'UploadController',
                 'action' => 'upload'

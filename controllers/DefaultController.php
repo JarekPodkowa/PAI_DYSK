@@ -35,7 +35,7 @@ class DefaultController extends AppController
                 return $this->render('login', ['message' => ['Email not recognized']]);
             }
 
-            if ($user->getPassword() !== $_POST['password']) {
+            if ($user->getPassword() !== md5($_POST['password'])) {
                 return $this->render('login', ['message' => ['Wrong password']]);
             } else {
                 $_SESSION["id"] = $user->getEmail();
@@ -56,5 +56,27 @@ class DefaultController extends AppController
         session_destroy();
 
         $this->render('index', ['text' => 'You have been successfully logged out!']);
+    }
+
+    public function register()
+    {
+        $mapper = new UserMapper();
+        $user = null;
+
+        if ($this->isPost()) {
+            $user = new User(
+              $_POST['name'],
+              $_POST['surname'],
+              $_POST['email'],
+              md5($_POST['password'])
+            );
+            $mapper->setUser($user);
+
+            $this->render('login', [
+                'message' => ['You have been successful registrated! Please login.']
+                ]);
+        }
+
+        $this->render('register');
     }
 }

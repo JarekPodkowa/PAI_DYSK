@@ -54,4 +54,30 @@ class UserMapper
             die();
         }
     }
+
+
+    public function setUser(User $user): void
+    {
+        $name = $user->getName();
+        $surname = $user->getSurname();
+        $email = $user->getEmail();
+        $password = $user->getPassword();
+        $role = $user->getRole();
+
+        try {
+            $stmt = $this->database->connect()->prepare('
+                INSERT INTO `users` (`name`, `surname`, `email`, `password`, `role`) 
+                VALUES (:name, :surname, :email, :password, :role);
+            ');
+            $stmt->bindParam(':name', $name, PDO::PARAM_STR);
+            $stmt->bindParam(':surname',$surname, PDO::PARAM_STR);
+            $stmt->bindParam(':email',$email, PDO::PARAM_STR);
+            $stmt->bindParam(':password', $password, PDO::PARAM_STR);
+            $stmt->bindParam(':role', $role, PDO::PARAM_STR);
+            $stmt->execute();
+        }
+        catch(PDOException $e) {
+            die();
+        }
+    }
 }
