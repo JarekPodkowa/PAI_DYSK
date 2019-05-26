@@ -22,7 +22,7 @@
                         <i class="material-icons md-48">email</i>
                     </label>
                     <div class="col-sm-11">
-                        <input type="email" class="form-control" id="inputEmail" name="email" placeholder="email" required/>
+                        <input type="text" class="form-control" id="inputEmail" name="email" placeholder="email" required/>
                     </div>
                 </div>
                 <div class="form-group row">

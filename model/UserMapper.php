@@ -16,12 +16,15 @@ class UserMapper
         string $email
     ):User {
         try {
-            $stmt = $this->database->connect()->prepare('SELECT * FROM users WHERE email = :email;');
-            $stmt->bindParam(':email', $email, PDO::PARAM_STR);
+            $stmt = $this->database->connect()->prepare('
+            SELECT * FROM users WHERE USERNAME = :username;
+            ');
+            $stmt->bindParam(':username', $email, PDO::PARAM_STR);
             $stmt->execute();
 
             $user = $stmt->fetch(PDO::FETCH_ASSOC);
-            return new User($user['name'], $user['surname'], $user['email'], $user['password']);
+
+            return new User($user['NAME'], $user['SURNAME'], $user['USERNAME'], $user['PASSWORD']);
         }
         catch(PDOException $e) {
             return 'Error: ' . $e->getMessage();
@@ -66,12 +69,12 @@ class UserMapper
 
         try {
             $stmt = $this->database->connect()->prepare('
-                INSERT INTO `users` (`name`, `surname`, `email`, `password`, `role`) 
-                VALUES (:name, :surname, :email, :password, :role);
+                INSERT INTO `users` (`NAME`, `SURENAME`, `USERNAME`, `PASSWORD`, `ROLE`) 
+                VALUES (:name, :surname, :username, :password, :role);
             ');
             $stmt->bindParam(':name', $name, PDO::PARAM_STR);
             $stmt->bindParam(':surname',$surname, PDO::PARAM_STR);
-            $stmt->bindParam(':email',$email, PDO::PARAM_STR);
+            $stmt->bindParam(':username',$email, PDO::PARAM_STR);
             $stmt->bindParam(':password', $password, PDO::PARAM_STR);
             $stmt->bindParam(':role', $role, PDO::PARAM_STR);
             $stmt->execute();

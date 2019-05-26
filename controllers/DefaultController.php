@@ -29,7 +29,11 @@ class DefaultController extends AppController
 
         if ($this->isPost()) {
 
+            // var_dump($_POST['email']); die();
+
             $user = $mapper->getUser($_POST['email']);
+
+
 
             if(!$user) {
                 return $this->render('login', ['message' => ['Email not recognized']]);
@@ -62,17 +66,18 @@ class DefaultController extends AppController
     {
         $mapper = new UserMapper();
         $user = null;
-
         if ($this->isPost()) {
             $user = new User(
               $_POST['name'],
               $_POST['surname'],
-              $_POST['email'],
+              $_POST['username'],
               md5($_POST['password'])
             );
+
+            // var_dump($user); die();
             $mapper->setUser($user);
 
-            $this->render('login', [
+            return $this->render('login', [
                 'message' => ['You have been successful registrated! Please login.']
                 ]);
         }

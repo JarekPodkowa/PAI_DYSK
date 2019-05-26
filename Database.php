@@ -25,7 +25,7 @@ class Database
         }
         catch(PDOException $e)
         {
-            return 'Connection failed: ' . $e->getMessage();
+            die('Connection failed: ' . $e->getMessage());
         }
     }
 }

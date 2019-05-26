@@ -21,6 +21,14 @@ class UploadController extends AppController
                 dirname(__DIR__).self::UPLOAD_DIRECTORY.$_FILES['file']['name']
             );
 
+            //todo set data to DB
+            //podlaczyc require once FileMapper
+            //polaczyc require once File
+
+            // $mapper = new FileMapper();
+            // $file = new File(date("Y-m-d h:i:sa"), $_FILES['file']['name'], $_FILES['file']['size']);
+            //$mapper->setFile($file);
+
             $this->message[] = 'File uploaded.';
         }
 
